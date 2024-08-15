@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dibujar Figuras</title>
+    <style>
+        canvas {
+            border: 6px solid rgb(0, 0, 0);
+            display: block;
+            margin: 25px auto;
+        }
+    </style>
+</head>
+<body>
+    <h2>Dibujar Figuras Geométricas </h2>
+    <form id="formFiguras">
+        <label for="figura">Elija la figura:</label>
+        <select id="figura">
+            <option value="circulo">Círculo</option>
+            <option value="cuadrado">Cuadrado</option>
+            <option value="triangulo">Triángulo</option>
+        </select><br><br>
+
+        <label for="coordenada">Elija el tipo de coordenada:</label>
+        <select id="coordenada">
+            <option value="cartesiana">Cartesiana</option>
+            <option value="polar">Polar</option>
+        </select><br><br>
+
+        <div id="coordenadas">
+            <label for="x">Coordenada x:</label>
+            <input type="number" id="x" value="0"><br><br>
+
+            <label for="y">Coordenada y:</label>
+            <input type="number" id="y" value="0"><br><br>
+        </div>
+
+        <div id="polares" style="display:none;">
+            <label for="r">Radio r:</label>
+            <input type="number" id="r" value="0"><br><br>
+
+            <label for="theta">Ángulo θ (grados):</label>
+            <input type="number" id="theta" value="0"><br><br>
+        </div>
+
+        <label for="tamano">Tamaño (radio/lado):</label>
+        <input type="number" id="tamano" value="50"><br><br>
+
+        <!-- Selector de color -->
+        <label for="color">Elija el color:</label>
+        <input type="color" id="color" value="#000000"><br><br>
+
+        <button type="button" onclick="dibujarFigura()">Dibujar</button>
+    </form>
+
+    <canvas id="canvas" width="600" height="600"></canvas>
+
+    <script src="figuras2D.js"></script>
+</body>
+</html>
