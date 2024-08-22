@@ -12,7 +12,7 @@ const form = document.getElementById('formFiguras');
             }
         });
 
-        function dibujarFigura() {
+       function dibujarFigura() {
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, canvas.width, canvas.height);  // Limpiar el canvas
@@ -59,6 +59,12 @@ const form = document.getElementById('formFiguras');
         case 'estrella':
             dibujarEstrella(ctx, canvasX, canvasY, tamano, 5); // 5 es el número de puntas de la estrella
             break;
+        case 'pentagono':
+            dibujarPoligono(ctx, canvasX, canvasY, tamano, 5); // 5 lados para el pentágono
+            break;
+        case 'hexagono':
+            dibujarPoligono(ctx, canvasX, canvasY, tamano, 6); // 6 lados para el hexágono
+            break;
     }
     ctx.fill();  // Rellenar la figura
     ctx.stroke(); // Dibujar los bordes de la figura
@@ -72,6 +78,17 @@ function dibujarEstrella(ctx, x, y, radius, puntos) {
         const rad = i * step;
         const r = (i % 2 === 0) ? radius : radius / 2;
         ctx.lineTo(x + r * Math.cos(rad), y - r * Math.sin(rad));
+    }
+    ctx.closePath();
+}
+
+function dibujarPoligono(ctx, x, y, radius, lados) {
+    const step = 2 * Math.PI / lados;
+    ctx.moveTo(x + radius * Math.cos(0), y - radius * Math.sin(0));
+
+    for (let i = 1; i <= lados; i++) {
+        const rad = i * step;
+        ctx.lineTo(x + radius * Math.cos(rad), y - radius * Math.sin(rad));
     }
     ctx.closePath();
 }
