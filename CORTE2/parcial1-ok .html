@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Poligonoooos</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            
+            margin: 0;
+        }
+        canvas {
+            border: 1px solid #000;
+            margin-top: 10px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            color: rgb(56, 51, 188);
+            align-items: center;
+            font-family: 'Arial', sans-serif;
+        }
+
+        label, input {
+            margin: 4px 0;
+        }
+        h1 {
+            color: rgb(255, 230, 0); 
+            font-family: 'Arial', sans-serif;
+        }
+        button {
+            color: rgb(255, 0, 0); 
+            font-family: 'Arial', sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <h1>Dibujador de Polígonos :D</h1>
+
+    <form id="figura">
+        <label for="numlados">Número de lados (n):</label>
+        <input type="number" id="numlados" name="numlados" min="3" required>
+
+        <label for="lado">Longitud del lado (L):</label>
+        <input type="number" id="lado" name="lado" required>
+
+        <label for="coordSystem">Sistema de coordenadas:</label>
+        <select id="coordSystem" name="coordSystem">
+            <option value="cartesianas">Cartesianas</option>
+            <option value="polares">Polares</option>
+        </select>
+
+        <div id="cartesianInputs">
+            <label for="x">Coordenada x :</label>
+            <input type="number" id="x" name="x" required>
+
+            <label for="y">Coordenada y:</label>
+            <input type="number" id="y" name="y" required>
+        </div>
+	
+	<div id="polarInputs">
+            <label for="radio">Radio (r):</label>
+            <input type="number" id="radio" name="radio" required>
+
+            <label for="angulo">Ángulo inicial (θ en grados):</label>
+            <input type="number" id="angulo" name="angulo" required>
+        </div>
+
+        <button type="submit">Dibujar</button>
+    </form>
+
+    <canvas id="canvasfiguritas" width="500" height="500"></canvas>
+
+    <!-- Referencia al archivo JavaScript -->
+    <script src="parcial1-ok.js"></script>
+</body>
+</html>
