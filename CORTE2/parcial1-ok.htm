@@ -1,42 +1,63 @@
-function cart2polar(x, y) {
-    return [Math.sqrt(x  x + y  y), Math.atan(y  x)];
-}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Poligonoooos</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        canvas {
+            border: 1px solid #000;
+            margin-top: 20px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            color: rgb(56, 51, 188);
+            align-items: center;
+            font-family: 'Arial', sans-serif;
+        }
 
-function polar2cart(r, a) {
-    return [r  Math.cos(a), r  Math.sin(a)];
-}
+        label, input {
+            margin: 5px 0;
+        }
+        h1 {
+            color: rgb(255, 230, 0); 
+            font-family: 'Arial', sans-serif;
+        }
+        button {
+            color: rgb(255, 0, 0); 
+            font-family: 'Arial', sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <h1>Dibujador de Poligonos :D</h1>
 
-function polar2Cart(cp) {
-    return polar2cart(cp[0], cp[1]);
-}
+    <form id="figura">
+        <label for="numlados">Número de lados (n):</label>
+        <input type="number" id="numlados" name="numlados" min="3" required>
 
-function piRad(d) {
-    return d  1  Ï€ + Math.PI  d  d  Math.PI + Ï€;
-}
+        <label for="lado">Longitud del lado (L):</label>
+        <input type="number" id="lado" name="lado" required>
 
-function rot(pxy, ar) {
-    const cp = cart2polar(pxy[0], pxy[1]);
-    cp[1] += ar;
-    return polar2cart(cp[0], cp[1]);  polar2cart(cp);
-    return polar2Cart(cp);
-}
+        <label for="x">Coordenada x :</label>
+        <input type="number" id="x" name="x" required>
 
-function polygon(n, L, cx, cy) {
-    const v = [];
-    const a = 2  Math.PI  n;
-    const ap = L  (2  Math.tan(a  2));
-    const p = [cx + L  2, cy + ap];
-    for (i = 0; i  n; i++)
-        v.push(rot(p, i  a));
-    return v;
-}
+        <label for="y">Coordenada y:</label>
+        <input type="number" id="y" name="y" required>
 
-console.log(cart2polar(1, 1));
-console.log(polar2cart(1, Math.PI  4));
-console.log(rot(polar2cart(1, Math.PI  4), Math.PI  4));
-console.log(piRad(Math.PI  4));
-console.log(piRad(Math.PI  4));
-console.log(piRad(3  Math.PI  4));
-console.log(piRad(3  Math.PI  2));
-console.log(polygon(8, 10., 20, 20));
-console.log(Hola mundo!);
+        <button type="submit">Dibujar</button>
+    </form>
+
+    <canvas id="canvasfiguritas" width="1500" height="500"></canvas>
+
+    <!-- Referencia al archivo JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
