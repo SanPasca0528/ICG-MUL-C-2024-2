@@ -18,7 +18,8 @@ class Punto {
 }
 
 // Variables globales
-const svg = document.getElementById('miSVG');
+const canvas = document.getElementById('miCanvas');
+const ctx = canvas.getContext('2d');
 const numPuntosInput = document.getElementById('numPuntos');
 const numPuntosValor = document.getElementById('numPuntosValor');
 let puntos = [];
@@ -30,8 +31,8 @@ numPuntosInput.addEventListener('input', () => {
 
 // Generar un punto aleatorio
 function generarPuntoAleatorio() {
-    const x = Math.floor(Math.random() * svg.clientWidth);
-    const y = Math.floor(Math.random() * svg.clientHeight);
+    const x = Math.floor(Math.random() * canvas.width);
+    const y = Math.floor(Math.random() * canvas.height);
     return new Punto(x, y);
 }
 
@@ -54,42 +55,35 @@ function ordenarPuntos(puntos) {
     });
 }
 
-// Dibujar la figura en SVG (vectores)
-function dibujarFiguraSVG(puntos) {
-    while (svg.firstChild) {
-        svg.removeChild(svg.firstChild); // Limpiar el contenido de SVG
-    }
+// Dibujar la figura en el canvas
+function dibujarFiguraCanvas(puntos) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height); // Limpiar el canvas
 
-    const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-    
     // Ordenar los puntos
     const puntosOrdenados = ordenarPuntos(puntos);
-    
-    let d = `M ${puntosOrdenados[0].getX()},${puntosOrdenados[0].getY()} `;
+
+    // Dibujar la figura
+    ctx.beginPath();
+    ctx.moveTo(puntosOrdenados[0].getX(), puntosOrdenados[0].getY());
 
     for (let i = 1; i < puntosOrdenados.length; i++) {
-        d += `L ${puntosOrdenados[i].getX()},${puntosOrdenados[i].getY()} `;
+        ctx.lineTo(puntosOrdenados[i].getX(), puntosOrdenados[i].getY());
     }
 
-    d += "Z"; // Cerrar la figura
-    path.setAttribute("d", d);
-    path.setAttribute("stroke", "black");
-    path.setAttribute("fill", "none");
+    ctx.closePath(); // Cerrar la figura
+    ctx.stroke(); // Dibujar la línea
 
-    svg.appendChild(path); // Añadir la ruta al SVG
-
-    dibujarPuntosSVG(puntosOrdenados);
+    // Dibujar los puntos
+    dibujarPuntosCanvas(puntosOrdenados);
 }
 
-// Dibujar los puntos en SVG
-function dibujarPuntosSVG(puntos) {
+// Dibujar los puntos en el canvas
+function dibujarPuntosCanvas(puntos) {
     puntos.forEach(function (punto) {
-        const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-        circle.setAttribute("cx", punto.getX());
-        circle.setAttribute("cy", punto.getY());
-        circle.setAttribute("r", 5);
-        circle.setAttribute("fill", "black");
-        svg.appendChild(circle);
+        ctx.beginPath();
+        ctx.arc(punto.getX(), punto.getY(), 5, 0, Math.PI * 2);
+        ctx.fillStyle = "black";
+        ctx.fill();
     });
 }
 
@@ -130,7 +124,7 @@ function generarYDibujar() {
     const resultadoTexto = convexa ? 'La figura es convexa.' : 'La figura es concava.';
     document.getElementById('resultado').textContent = resultadoTexto;
 
-    dibujarFiguraSVG(puntos);
+    dibujarFiguraCanvas(puntos);
 }
 
 // Cambiar puntos al hacer clic en el botón
