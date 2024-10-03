@@ -38,21 +38,51 @@ function generarPuntoAleatorio() {
 
 // Calcular el centroide de los puntos
 function calcularCentroide(puntos) {
-    const sumaX = puntos.reduce((acc, punto) => acc + punto.getX(), 0);
-    const sumaY = puntos.reduce((acc, punto) => acc + punto.getY(), 0);
-    const centroideX = sumaX / puntos.length;
-    const centroideY = sumaY / puntos.length;
-    return new Punto(centroideX, centroideY);
+    let sumaX = 0; // Inicializar la suma de las coordenadas X
+    let sumaY = 0; // Inicializar la suma de las coordenadas Y
+    const numPuntos = puntos.length; // Obtener el número de puntos
+
+    // Iterar sobre cada punto para sumar las coordenadas
+    for (let i = 0; i < numPuntos; i++) {
+        sumaX += puntos[i].getX(); // Sumar coordenada X
+        sumaY += puntos[i].getY(); // Sumar coordenada Y
+    }
+
+    // Calcular las coordenadas del centroide
+    const centroideX = sumaX / numPuntos; // Promedio de las coordenadas X
+    const centroideY = sumaY / numPuntos; // Promedio de las coordenadas Y
+
+    return new Punto(centroideX, centroideY); // Devolver el centroide como un nuevo Punto
 }
+
 
 // Ordenar los puntos en sentido horario respecto al centroide
 function ordenarPuntos(puntos) {
     const centroide = calcularCentroide(puntos);
-    return puntos.sort((a, b) => {
-        const anguloA = Math.atan2(a.getY() - centroide.getY(), a.getX() - centroide.getX());
-        const anguloB = Math.atan2(b.getY() - centroide.getY(), b.getX() - centroide.getX());
-        return anguloA - anguloB; // Ordenar por ángulo
-    });
+    const numPuntos = puntos.length;
+
+    for (let i = 0; i < numPuntos - 1; i++) {
+        let indiceMinimo = i;
+
+        for (let j = i + 1; j < numPuntos; j++) {
+            const anguloA = Math.atan2(puntos[indiceMinimo].getY() - centroide.getY(), puntos[indiceMinimo].getX() - centroide.getX());
+            const anguloB = Math.atan2(puntos[j].getY() - centroide.getY(), puntos[j].getX() - centroide.getX());
+            
+            // Si el ángulo de B es menor que el de A, actualizamos el índice mínimo
+            if (anguloB < anguloA) {
+                indiceMinimo = j;
+            }
+        }
+
+        // Intercambiar el punto mínimo encontrado con el primer punto no ordenado
+        if (indiceMinimo !== i) {
+            const temp = puntos[i];
+            puntos[i] = puntos[indiceMinimo];
+            puntos[indiceMinimo] = temp;
+        }
+    }
+    
+    return puntos; // Devolver el arreglo de puntos ordenados
 }
 
 // Dibujar la figura en el canvas
