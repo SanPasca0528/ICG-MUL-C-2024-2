@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vectores (SVG)</title>
+    <style>
+        #miSVG {
+            border: 1px solid #000;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Figura en Vectores</h1>
+
+    <label for="numPuntos">Número de puntos (3-20): </label>
+    <input type="range" id="numPuntos" min="3" max="20" value="5">
+    <span id="numPuntosValor">5</span>
+
+    <br><br>
+
+    <svg id="miSVG" width="500" height="500"></svg>
+
+    <p id="resultado"></p>
+    <button id="btnCambiar">Cambiar Puntos</button>
+
+    <script src="vectorizado.js"></script>
+</body>
+</html>
+
